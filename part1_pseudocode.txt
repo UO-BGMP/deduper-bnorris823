@@ -1,0 +1,22 @@
+
+Write argparse code to input filename/location as a variable.
+
+Create two empty lists - 
+	-One will contain the alignment positions.
+	-The other will contain UMI/Randomers.
+
+Open file:
+
+	Iterate through the file line by line AKA read by read
+	
+	For each read:
+		-Parse the cigar string and adjust the alignment position if soft clipping is present.
+
+		-Once alignment is adjusted, check first list to see if position has been seen before.
+			if not, add it to the list and return true, else return false
+
+		-check to see if UMI/Randomer has been seen before.
+			if not, add it to the list and return true, else return false
+		
+		-if both alignment and UMI functions return true, output read to new file, else go to next read.
+
