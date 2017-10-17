@@ -1,9 +1,7 @@
 
 Write argparse code to input filename/location as a variable.
 
-Create two empty lists - 
-	-One will contain the alignment positions.
-	-The other will contain UMI/Randomers.
+Create a dictionary with the UMIs as keys, the alignment positions associated with them will be the values.
 
 Open file:
 
