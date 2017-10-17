@@ -1,7 +1,9 @@
 
 Write argparse code to input filename/location as a variable.
 
-Create a dictionary with the UMIs as keys, the alignment positions associated with them will be the values.
+Create a dictionary with the UMIs as keys, the alignment positions including strandedness associated with them will be the values. This will be a list of UMI alignment pairs.
+
+There will also be a list of possible UMI that will be used to check for sequencing error.
 
 Open file:
 
@@ -10,34 +12,31 @@ Open file:
 	For each read:
 		-Parse the cigar string and adjust the alignment position if soft clipping is present.
 
-		-Once alignment is adjusted, check first list to see if position has been seen before.
-			if not, add it to the list and return true, else return false
-
-		-check to see if UMI/Randomer has been seen before.
-			if not, add it to the list and return true, else return false
+		-check to see if UMI/Randomer is a result of sequencing error.
+			if it is, immediately move to next read skipping other checks, else continue to checking pair.
 		
-		-if both alignment and UMI functions return true, output read to new file, else go to next read.
+		-check to see of the UMI and the corrected alignment position including strandedness are a pair in the dictionary.
+			if not, move to next read, else output SAM line to new SAM file.
 
 Function Headers
 
 def cigar_parse(cigar_string, alignment_pos):
 	if soft clipping present?
+		what strand?
 		correct alignment position
 	else
 		do nothing
 	return corrected alignment position
 	
-def check_alignment(corrected alignment, alignment_list):
-	look for corrected alignment in alignment list
-	return True of False
-	
-def parse_UMI(seq):
-	pull out UMI substring from the seq
-	return UMI
-	
 def check_UMI(UMI, UMI_list):
 	look for UIM in UMI_list
 	return True or False
 	
+def check_pair(UMI, corrected alignment_pos):
+	is UMI alignment_pos key value pair in the dictionary
+	if true
+		throw out and move to next read
+	if false
+		output SAM line to new SAM output file
 
 	
